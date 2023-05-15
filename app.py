@@ -41,6 +41,41 @@ def get_data_wallet():
     mydb.commit()
     return make_response(jsonify(json_data), 200)
 
+@app.route("/update_wallet", methods=["POST"])
+def update_wallet():
+    hasil = {"status": "failed"}
+    query = """UPDATE wallets 
+            SET name = %s 
+            WHERE id = %s"""
+    try:
+        id = request.form.get('id')
+        name = request.form.get('name')
+        value = (name, id)
+        mycursor = mydb.cursor()
+        mycursor.execute(query, value)
+        mydb.commit()
+        hasil = {"status": "success"}
+    except Exception as e:
+        print("ERROR : "+str(e))
+
+    return jsonify(hasil)
+
+@app.route("/delete_wallet", methods=["POST"])
+def delete_wallet():
+    hasil = {"status": "failed"}
+    query = "DELETE FROM wallets WHERE id = %s"
+    try:
+        id = request.form.get('id')
+        value = (id)
+        mycursor = mydb.cursor()
+        mycursor.execute(query, value)
+        mydb.commit()
+        hasil = {"status": "success"}
+    except Exception as e:
+        print("ERROR : "+str(e))
+
+    return jsonify(hasil)
+
 @app.route("/post_asset", methods=["POST"])
 def post_asset():
     hasil = {"status": "failed"}
