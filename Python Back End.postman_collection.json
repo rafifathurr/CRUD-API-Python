@@ -1,0 +1,446 @@
+{
+	"info": {
+		"_postman_id": "5b053e9c-f79c-4cd2-9a43-22d2d5a43fec",
+		"name": "Python Back End",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26535516",
+		"_collection_link": "https://crimson-shadow-822656.postman.co/workspace/Team-Workspace~ad1b6203-d040-4db8-8e28-5351bb47a568/collection/26535516-5b053e9c-f79c-4cd2-9a43-22d2d5a43fec?action=share&creator=26535516&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Get Data Wallet",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://192.168.1.49:9898/get_data_wallet",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"49"
+					],
+					"port": "9898",
+					"path": [
+						"get_data_wallet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Data Assets",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://192.168.1.49:9898/get_data_asset",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"49"
+					],
+					"port": "9898",
+					"path": [
+						"get_data_asset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Data Transactions",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://192.168.1.49:9898/get_data_transaction",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"49"
+					],
+					"port": "9898",
+					"path": [
+						"get_data_transaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Wallets",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Rafi",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.49:9898/post_wallet",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"49"
+					],
+					"port": "9898",
+					"path": [
+						"post_wallet"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Rafi",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Wallet",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Rafi Fathur R",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.49:9898/update_wallet",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"49"
+					],
+					"port": "9898",
+					"path": [
+						"update_wallet"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Rafi",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Assets",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "2",
+							"type": "text"
+						},
+						{
+							"key": "wallet_id",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Crypto",
+							"type": "text"
+						},
+						{
+							"key": "symbol",
+							"value": "USD",
+							"type": "text"
+						},
+						{
+							"key": "network",
+							"value": "192.168.2.50:8080",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "New York",
+							"type": "text"
+						},
+						{
+							"key": "balance",
+							"value": "2000000.500",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.49:9898/update_asset",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"49"
+					],
+					"port": "9898",
+					"path": [
+						"update_asset"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Rafi",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Assets",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "wallet_id",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "symbol",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "network",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "",
+							"type": "text"
+						},
+						{
+							"key": "balance",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.49:9898/post_asset",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"49"
+					],
+					"port": "9898",
+					"path": [
+						"post_asset"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Transactions",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "src_wallet_id",
+							"value": "5",
+							"type": "text"
+						},
+						{
+							"key": "src_asset_id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "dest_wallet_id",
+							"value": "7",
+							"type": "text"
+						},
+						{
+							"key": "dest_asset_id",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "20000.2",
+							"type": "text"
+						},
+						{
+							"key": "gas_fee",
+							"value": "10500.5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.49:9898/post_transaction",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"49"
+					],
+					"port": "9898",
+					"path": [
+						"post_transaction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Wallet",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "8",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.49:9898/delete_wallet",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"49"
+					],
+					"port": "9898",
+					"path": [
+						"delete_wallet"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Assets",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "id",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://192.168.1.49:9898/delete_asset",
+					"protocol": "http",
+					"host": [
+						"192",
+						"168",
+						"1",
+						"49"
+					],
+					"port": "9898",
+					"path": [
+						"delete_asset"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

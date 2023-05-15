@@ -13,7 +13,9 @@ mydb = pymysql.connect(
 @app.route("/post_wallet", methods=["POST"])
 def post_wallet():
     hasil = {"status": "failed"}
-    query = "INSERT INTO wallets(name) values(%s)"
+    query = """INSERT INTO wallets(name) 
+            values(%s)"""
+
     try:
         name = request.form.get('name')
         value = (name)
@@ -47,6 +49,7 @@ def update_wallet():
     query = """UPDATE wallets 
             SET name = %s 
             WHERE id = %s"""
+
     try:
         id = request.form.get('id')
         name = request.form.get('name')
@@ -63,7 +66,10 @@ def update_wallet():
 @app.route("/delete_wallet", methods=["POST"])
 def delete_wallet():
     hasil = {"status": "failed"}
-    query = "DELETE FROM wallets WHERE id = %s"
+    query = """DELETE 
+            FROM wallets 
+            WHERE id = %s"""
+
     try:
         id = request.form.get('id')
         value = (id)
@@ -82,6 +88,7 @@ def post_asset():
     query = """INSERT INTO assets(wallet_id, name, symbol, 
             network, address, balance) 
             values(%s, %s, %s, %s, %s, %s)"""
+
     try:
         wallet_id = request.form.get('wallet_id')
         name = request.form.get('name')
@@ -122,12 +129,61 @@ def get_data_asset():
     mydb.commit()
     return make_response(jsonify(json_data), 200)
 
+@app.route("/update_asset", methods=["POST"])
+def update_asset():
+    hasil = {"status": "failed"}
+    query = """UPDATE assets 
+            SET 
+            wallet_id = %s ,
+            name = %s ,
+            symbol = %s ,
+            network = %s ,
+            address = %s ,
+            balance = %s 
+            WHERE id = %s"""
+    try:
+        id = request.form.get('id')
+        wallet_id = request.form.get('wallet_id')
+        name = request.form.get('name')
+        symbol = request.form.get('symbol')
+        network = request.form.get('network')
+        address = request.form.get('address')
+        balance = request.form.get('balance')
+        value = (wallet_id, name, symbol, network, address, balance, id)
+        mycursor = mydb.cursor()
+        mycursor.execute(query, value)
+        mydb.commit()
+        hasil = {"status": "success"}
+    except Exception as e:
+        print("ERROR : "+str(e))
+
+    return jsonify(hasil)
+
+@app.route("/delete_asset", methods=["POST"])
+def delete_asset():
+    hasil = {"status": "failed"}
+    query = """DELETE 
+            FROM assets 
+            WHERE id = %s"""
+    try:
+        id = request.form.get('id')
+        value = (id)
+        mycursor = mydb.cursor()
+        mycursor.execute(query, value)
+        mydb.commit()
+        hasil = {"status": "success"}
+    except Exception as e:
+        print("ERROR : "+str(e))
+
+    return jsonify(hasil)
+
 @app.route("/post_transaction", methods=["POST"])
 def post_transaction():
     hasil = {"status": "failed"}
     query = """INSERT INTO asset_transactions(src_wallet_id, src_asset_id, 
             dest_wallet_id, dest_asset_id, amount, gas_fee, total) 
             values(%s, %s, %s, %s, %s, %s, %s)"""
+
     try:
         src_wallet_id = request.form.get('src_wallet_id')
         src_asset_id = request.form.get('src_asset_id')
