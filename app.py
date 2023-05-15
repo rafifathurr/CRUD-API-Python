@@ -28,7 +28,8 @@ def post_wallet():
 
 @app.route("/get_data_wallet", methods=["POST"])
 def get_data_wallet():
-    query = "SELECT * FROM wallets"
+    query = """SELECT * 
+            FROM wallets"""
 
     mycursor = mydb.cursor()
     mycursor.execute(query)
@@ -43,7 +44,9 @@ def get_data_wallet():
 @app.route("/post_asset", methods=["POST"])
 def post_asset():
     hasil = {"status": "failed"}
-    query = "INSERT INTO assets(wallet_id, name, symbol, network, address, balance) values(%s, %s, %s, %s, %s, %s)"
+    query = """INSERT INTO assets(wallet_id, name, symbol, 
+            network, address, balance) 
+            values(%s, %s, %s, %s, %s, %s)"""
     try:
         wallet_id = request.form.get('wallet_id')
         name = request.form.get('name')
@@ -63,10 +66,68 @@ def post_asset():
 
 @app.route("/get_data_asset", methods=["POST"])
 def get_data_asset():
-    query = """select assets.id as id_assets, wallets.name as wallet_name,
-            assets.name, assets.symbol, assets.network, assets.address,
-            assets.balance from assets
+    query = """select 
+            assets.id as id_assets, 
+            wallets.name as wallet_name,
+            assets.name, 
+            assets.symbol, 
+            assets.network, 
+            assets.address,
+            assets.balance 
+            from assets
             join wallets on wallets.id = assets.wallet_id"""
+
+    mycursor = mydb.cursor()
+    mycursor.execute(query)
+    row_headers = [x[0] for x in mycursor.description]
+    data = mycursor.fetchall()
+    json_data = []
+    for result in data:
+        json_data.append(dict(zip(row_headers, result)))
+    mydb.commit()
+    return make_response(jsonify(json_data), 200)
+
+@app.route("/post_transaction", methods=["POST"])
+def post_transaction():
+    hasil = {"status": "failed"}
+    query = """INSERT INTO asset_transactions(src_wallet_id, src_asset_id, 
+            dest_wallet_id, dest_asset_id, amount, gas_fee, total) 
+            values(%s, %s, %s, %s, %s, %s, %s)"""
+    try:
+        src_wallet_id = request.form.get('src_wallet_id')
+        src_asset_id = request.form.get('src_asset_id')
+        dest_wallet_id = request.form.get('dest_wallet_id')
+        dest_asset_id = request.form.get('dest_asset_id')
+        amount = float(request.form.get('amount'))
+        gas_fee = float(request.form.get('gas_fee'))
+        total = amount+gas_fee
+        value = (src_wallet_id, src_asset_id, dest_wallet_id, dest_asset_id, amount, gas_fee, total)
+        mycursor = mydb.cursor()
+        mycursor.execute(query, value)
+        mydb.commit()
+        hasil = {"status": "success"}
+    except Exception as e:
+        print("ERROR : "+str(e))
+
+    return jsonify(hasil)
+
+@app.route("/get_data_transaction", methods=["POST"])
+def get_data_transaction():
+    query = """select 
+            src_w.name as source_wallet_name,
+            src_a.name as source_asset_name,
+            dest_w.name as destination_wallet_name,
+            dest_a.name as destination_asset_name,
+            at.amount,
+            at.gas_fee,
+            at.total
+            from 
+            asset_transactions as at
+            join wallets src_w on src_w.id = at.src_wallet_id
+            join wallets dest_w on dest_w.id = at.dest_wallet_id
+            join assets src_a on src_a.id = at.src_asset_id
+            join assets dest_a on dest_a.id = at.dest_asset_id
+            """
 
     mycursor = mydb.cursor()
     mycursor.execute(query)
